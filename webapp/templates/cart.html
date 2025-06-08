@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Корзина{% endblock %}
+{% block content %}
+<h2>Корзина</h2>
+{% if not products %}
+<p>Корзина пуста.</p>
+{% else %}
+<table class="cart">
+  <tr><th>Товар</th><th>Цена</th><th></th></tr>
+  {% for p in products %}
+  <tr>
+    <td>{{ p['name'] }}</td>
+    <td>{{ p['price'] }} руб.</td>
+    <td><a href="{{ url_for('remove_from_cart', product_id=p['id']) }}">Удалить</a></td>
+  </tr>
+  {% endfor %}
+</table>
+<a class="btn" href="{{ url_for('order') }}">Оформить заказ</a>
+{% endif %}
+{% endblock %}

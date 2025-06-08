@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Магазин{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <h1>Магазин бытовых товаров</h1>
+    <nav>
+        <a href="{{ url_for('index') }}">Каталог</a>
+        {% if g.get('categories') %}
+            {% for c in g.categories %}
+                <a href="{{ url_for('index', category=c['category']) }}" class="{% if current_category==c['category'] %}active{% endif %}">{{ c['category'] }}</a>
+            {% endfor %}
+        {% endif %}
+        {% if session.get('user_id') %}
+            <a href="{{ url_for('cart') }}">Корзина</a>
+            <a href="{{ url_for('logout') }}">Выход</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Вход</a>
+            <a href="{{ url_for('register') }}">Регистрация</a>
+        {% endif %}
+    </nav>
+    <form class="search" action="{{ url_for('index') }}" method="get">
+        <input type="text" name="q" value="{{ query|default('') }}" placeholder="Поиск">
+        <button type="submit">Найти</button>
+    </form>
+</header>
+<main>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flash">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>
+
