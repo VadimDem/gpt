@@ -1,0 +1,4 @@
+body { font-family: sans-serif; max-width: 800px; margin: auto; }
+header { background: #eee; padding: 1em; text-align: center; }
+ul { list-style-type: none; padding: 0; }
+li { margin: 0.5em 0; }
