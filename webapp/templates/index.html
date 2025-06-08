@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Каталог{% endblock %}
+{% block content %}
+<div class="products">
+    {% for product in products %}
+    <div class="card">
+        <a href="{{ url_for('product_detail', product_id=product['id']) }}">
+            <img src="{{ url_for('static', filename=product['image']) }}" alt="{{ product['name'] }}">
+            <h3>{{ product['name'] }}</h3>
+        </a>
+        <p class="price">{{ product['price'] }} руб.</p>
+        <a class="btn" href="{{ url_for('add_to_cart', product_id=product['id']) }}">В корзину</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}{{ product['name'] }}{% endblock %}
+{% block content %}
+<h2>{{ product['name'] }}</h2>
+<img src="{{ url_for('static', filename=product['image']) }}" alt="{{ product['name'] }}">
+<p>{{ product['description'] }}</p>
+<p class="price">Цена: {{ product['price'] }} руб.</p>
+<a class="btn" href="{{ url_for('add_to_cart', product_id=product['id']) }}">Добавить в корзину</a>
+<a href="{{ url_for('index') }}">Назад к каталогу</a>
+{% endblock %}
+
